@@ -114,10 +114,6 @@ let g:ctrlsf_mapping={"vsplit": "<Space>"}
 " command-t ==============================
 let g:CommandTWildIgnore=&wildignore . ",*/bower_components,*/node_modules"
 
-" vim-devicons ===========================
-let g:WebDevIconsNerdTreeAfterGlyphPadding=' '
-let g:WebDevIconsNerdTreeGitPluginForceVAlign=0
-
 " nerdcommenter ==========================
 let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign='left'
@@ -125,3 +121,5 @@ let g:NERDDefaultAlign='left'
 " tagbar =================================
 nnoremap <Leader>tt :TagbarToggle<CR>
 
+" vim-devicons ===========================
+let g:gutentags_cache_dir = '~/.tags'
