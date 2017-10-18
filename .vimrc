@@ -4,11 +4,8 @@
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'vim-airline/vim-airline'                     " statusline
-" Plug 'vim-airline/vim-airline-themes'              " airline themes
 Plug 'scrooloose/nerdtree'                         " file navigation
 Plug 'Xuyuanp/nerdtree-git-plugin'                 " shows git status in NERDTree
-Plug 'jistr/vim-nerdtree-tabs'                     " NERDTree true panel
 Plug 'airblade/vim-gitgutter'                      " git diff in gutter
 Plug 'tpope/vim-fugitive'                          " git wrapper
 Plug 'wincent/command-t'                           " fuzzy file search
@@ -21,7 +18,6 @@ Plug 'dyng/ctrlsf.vim'                             " Sublime-like find in files
 Plug 'w0rp/ale'                                    " async linting
 Plug 'junegunn/vim-slash'                          " improved searching
 Plug 'tpope/vim-surround'                          " surroundings
-Plug 'junegunn/vim-easy-align'                     " alignment
 " colorschemes
 Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
@@ -92,17 +88,11 @@ noremap  <BS>    <c-w>W
 " PLUGIN SPECIFIC
 " ========================================
 
-" vim-airline ============================
-" let g:airline_powerline_fonts=1
-" let g:airline#extensions#tabline#enabled=1
-
-" vim-airline-themes ======================
-" let g:airline_theme='gruvbox'
-
-" vim-nerdtree-tabs ======================
-nnoremap <Leader>nf :NERDTreeTabsFind<CR>
-nnoremap <Leader>nt :NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup=2
+" nerdtree ===============================
+nnoremap <Leader>nf :NERDTreeFind<CR>
+nnoremap <Leader>nt :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 " syntastic ==============================
 let g:ale_sign_error='●'
@@ -124,10 +114,6 @@ let g:CommandTWildIgnore=&wildignore . ",*/bower_components,*/node_modules"
 " vim-devicons ===========================
 let g:WebDevIconsNerdTreeAfterGlyphPadding=' '
 let g:WebDevIconsNerdTreeGitPluginForceVAlign=0
-
-" vim-easy-align =========================
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
 
 " nerdcommenter ==========================
 let g:NERDSpaceDelims=1
