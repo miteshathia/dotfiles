@@ -18,6 +18,8 @@ Plug 'dyng/ctrlsf.vim'                             " Sublime-like find in files
 Plug 'w0rp/ale'                                    " async linting
 Plug 'junegunn/vim-slash'                          " improved searching
 Plug 'tpope/vim-surround'                          " surroundings
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
 " colorschemes
 Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
@@ -49,6 +51,7 @@ set hlsearch                                       " highlight all matching sear
 set mouse=a                                        " can use mouse to scroll and select
 set termguicolors                                  " truecolor
 set statusline=%=%P\ %f\ %m
+set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompletion
 
 let &colorcolumn="80,".join(range(120,373),",")    " colorcolumn at line 80 and 120+
 
@@ -118,4 +121,7 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign=0
 " nerdcommenter ==========================
 let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign='left'
+
+" tagbar =================================
+nnoremap <Leader>tt :TagbarToggle<CR>
 
