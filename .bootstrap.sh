@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# To execute: save and `chmod +x ./install.sh` then `./install.sh`
+# To execute: save and `chmod +x ./.bootstrap.sh` then `./.bootstrap.sh`
 
 echo "Installing brew..."
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
