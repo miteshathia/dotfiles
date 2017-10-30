@@ -3,8 +3,8 @@
 # ========================================
 
 # Adds tab completion for git
-if [ -f $HOME/git-completion.bash ]; then
-    . $HOME/git-completion.bash
+if [ -f $HOME/.git-completion.bash ]; then
+    . $HOME/.git-completion.bash
 fi
 
 # Vim keybindings in bash
