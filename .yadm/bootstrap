@@ -20,10 +20,8 @@ if ! [ -f $HOME/.vim/autoload/plug.vim ]; then
 fi
 
 # Bootstrapping vim
-if command -v vim >/dev/null 2>&1; then
-  echo "Bootstrapping vim"
-  vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
-fi
+echo "Bootstrapping vim"
+vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
 
 # Install git-completion
 if ! [ -f $HOME/.git-completion.bash ]; then
@@ -41,6 +39,13 @@ fi
 if ! command -v tmux >/dev/null 2>&1; then
   echo "Installing tmux"
   brew install tmux reattach-to-user-namespace
+fi
+
+# Install iTerm2 profile
+if [ $TERM_PROGRAM = "iTerm.app" ]; then
+  echo "Installing iTerm2 profile"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -int 1
+  defaults write com.googlecode.iterm2 PrefsCustomFolder $HOME/.iTerm2
 fi
 
 # Update terminfo
