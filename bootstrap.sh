@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# Install homebrew
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Installing homebrew"
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Install vim8
+vim_version=$(vim --version | head -1 | egrep -o '[0-9]+\.[0-9]+')
+if ! [ "${vim_version%%.*}" -ge 8 ]; then
+  echo "Installing vim8"
+  brew install vim --with-override-system-vi
+fi
+
+# Install vim-plug
+if ! [ -f $HOME/.vim/autoload/plug.vim ]; then
+  echo "Installing vim-plug"
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+# Bootstrapping vim
+if command -v vim >/dev/null 2>&1; then
+  echo "Bootstrapping vim"
+  vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+fi
+
+# Install git-completion
+if ! [ -f $HOME/.git-completion.bash ]; then
+  echo "Installing git-completion.bash"
+  curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $HOME/.git-completion.bash
+fi
+
+# Install n
+if ! command -v n >/dev/null 2>&1; then
+  echo "Installing node and n"
+  curl -L https://git.io/n-install | bash -s -- -y
+fi
+
+# Install tmux
+if ! command -v tmux >/dev/null 2>&1; then
+  echo "Installing tmux"
+  brew install tmux reattach-to-user-namespace
+fi
+
+# Update terminfo
+echo "Updating terminfo"
+curl -O https://raw.githubusercontent.com/nicknisi/dotfiles/master/resources/xterm-256color-italic.terminfo
+tic xterm-256color-italic.terminfo
+rm xterm-256color-italic.terminfo
+

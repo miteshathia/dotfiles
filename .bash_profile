@@ -3,11 +3,11 @@
 # ========================================
 
 # Load bashrc and profile if they exist
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
+if [ -f $HOME/.bashrc ]; then
+    . $HOME/.bashrc
 fi
 
-if [ -f ~/.profile ]; then
-    . ~/.profile
+if [ -f $HOME/.profile ]; then
+    . $HOME/.profile
 fi
 
