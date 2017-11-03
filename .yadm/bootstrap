@@ -8,7 +8,7 @@ fi
 
 # Install vim8
 vim_version=$(vim --version | head -1 | egrep -o '[0-9]+\.[0-9]+')
-if ! [ "${vim_version%%.*}" -ge 8 ]; then
+if [ "${vim_version%%.*}" -lt 8 ]; then
   echo "Installing vim8"
   brew install vim --with-override-system-vi
 fi
@@ -23,12 +23,6 @@ fi
 echo "Bootstrapping vim"
 vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
 
-# Install git-completion
-if ! [ -f $HOME/.git-completion.bash ]; then
-  echo "Installing git-completion.bash"
-  curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $HOME/.git-completion.bash
-fi
-
 # Install n
 if ! command -v n >/dev/null 2>&1; then
   echo "Installing node and n"
@@ -41,11 +35,18 @@ if ! command -v tmux >/dev/null 2>&1; then
   brew install tmux reattach-to-user-namespace
 fi
 
-# Install iTerm2 profile
-if [ $TERM_PROGRAM = "iTerm.app" ]; then
+# Install iTerm2
+install_iterm2_profile () {
   echo "Installing iTerm2 profile"
   defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -int 1
   defaults write com.googlecode.iterm2 PrefsCustomFolder $HOME/.iTerm2
+}
+if [ -d /Applications/iTerm.app ]; then
+  install_iterm2_profile
+else
+  echo "Installing iTerm2"
+  brew cask install iterm2
+  install_iterm2_profile
 fi
 
 # Update terminfo

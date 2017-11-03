@@ -52,6 +52,7 @@ set mouse=a                                        " can use mouse to scroll and
 set termguicolors                                  " truecolor
 set statusline=%=%P\ %f\ %m
 set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompletion
+set iskeyword+=-
 
 let &colorcolumn="80,".join(range(120,373),",")    " colorcolumn at line 80 and 120+
 
@@ -86,6 +87,10 @@ noremap  <C-j>   5j
 noremap  <Tab>   <c-w>w
 noremap  <BS>    <c-w>W
 
+" command aliases for lazy shift finger
+command! -bar -nargs=* -complete=file -range=% -bang W <line1>,<line2>write<bang> <args>
+command! -bar                                  -bang Q quit<bang>
+command! -bar -nargs=* -complete=file          -bang E edit<bang> <args>
 
 " ========================================
 " PLUGIN SPECIFIC
