@@ -12,3 +12,21 @@ set -o vi
 
 # Aliases
 alias weather="curl wttr.in"
+
+# ========================================
+# PLUGINS
+# ========================================
+
+. ~/.zplug/init.zsh
+
+zplug "zsh-users/zsh-autosuggestions"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load
