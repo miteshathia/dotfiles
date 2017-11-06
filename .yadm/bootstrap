@@ -55,3 +55,7 @@ curl -O https://raw.githubusercontent.com/nicknisi/dotfiles/master/resources/xte
 tic xterm-256color-italic.terminfo
 rm xterm-256color-italic.terminfo
 
+# Install zplug
+if ! [ -d $HOME/.zplug ]; then
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi

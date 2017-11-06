@@ -20,6 +20,7 @@ alias weather="curl wttr.in"
 . ~/.zplug/init.zsh
 
 zplug "zsh-users/zsh-autosuggestions"
+zplug "mathia4/minimal"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
