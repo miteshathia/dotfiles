@@ -22,6 +22,7 @@ fi
 # Bootstrapping vim
 echo "Bootstrapping vim"
 vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 # Install n
 if ! command -v n >/dev/null 2>&1; then
