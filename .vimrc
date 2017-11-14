@@ -18,12 +18,14 @@ Plug 'dyng/ctrlsf.vim'                             " Sublime-like find in files
 Plug 'w0rp/ale'                                    " async linting
 Plug 'junegunn/vim-slash'                          " improved searching
 Plug 'tpope/vim-surround'                          " surroundings
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'                " auto-gen tags
+Plug 'majutsushi/tagbar'                           " tagbar
+Plug 'itchyny/lightline.vim'                       " nicer statusline
 " colorschemes
 Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
-Plug 'mathia4/gruvbox'
+Plug 'morhetz/gruvbox'
+Plug 'shinchu/lightline-gruvbox.vim'               " lightline gruvbox theme
 
 call plug#end()
 
@@ -43,14 +45,14 @@ set tabstop=2                                      " size of tab character in sp
 set softtabstop=2                                  " number of spaces for tab in insert mode
 set expandtab                                      " tabs become spaces
 set updatetime=750                                 " 250ms update time
-set fillchars=""                                   " changing pane separator char
+set fillchars+=vert:░                              " statusline and vertsplit fillchars
 set cursorline                                     " highlights active line
+" set statusline=%=\%P\ %f\ %m                       " simple statusline
 set laststatus=2                                   " always show status line
 set clipboard=unnamed                              " copy+pasta to and from system clipboard
 set hlsearch                                       " highlight all matching search terms
 set mouse=a                                        " can use mouse to scroll and select
 set termguicolors                                  " truecolor
-set statusline=%=%P\ %f\ %m
 set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompletion
 set iskeyword+=-
 
@@ -128,3 +130,9 @@ nnoremap <Leader>tt :TagbarToggle<CR>
 
 " vim-devicons ===========================
 let g:gutentags_cache_dir = '~/.tags'
+
+" lightline.vim ==========================
+let g:lightline = {
+  \ 'colorscheme': 'gruvbox',
+  \ 'separator': { 'left': '▓▒░', 'right': '░▒▓' },
+  \ }
