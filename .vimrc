@@ -25,7 +25,6 @@ Plug 'itchyny/lightline.vim'                       " nicer statusline
 Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
 Plug 'morhetz/gruvbox'
-Plug 'shinchu/lightline-gruvbox.vim'               " lightline gruvbox theme
 
 call plug#end()
 
