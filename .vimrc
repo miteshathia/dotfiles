@@ -46,14 +46,14 @@ set expandtab                                      " tabs become spaces
 set updatetime=750                                 " 250ms update time
 set fillchars+=vert:░                              " statusline and vertsplit fillchars
 set cursorline                                     " highlights active line
-" set statusline=%=\%P\ %f\ %m                       " simple statusline
 set laststatus=2                                   " always show status line
 set clipboard=unnamed                              " copy+pasta to and from system clipboard
 set hlsearch                                       " highlight all matching search terms
 set mouse=a                                        " can use mouse to scroll and select
 set termguicolors                                  " truecolor
 set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompletion
-set iskeyword+=-
+set iskeyword+=-                                   " what should not be considered a word boundary
+set noshowmode                                     " remove mode information from last line
 
 let &colorcolumn="80,".join(range(120,373),",")    " colorcolumn at line 80 and 120+
 
