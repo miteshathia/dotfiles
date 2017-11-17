@@ -1,5 +1,5 @@
 # ========================================
-# GENERAL SETTINGS
+# GENERAL CONFIG
 # ========================================
 
 # Adds tab completion for git
@@ -13,6 +13,73 @@ set -o vi
 # Aliases
 alias weather="curl wttr.in"
 
+# Magic enter
+MAGIC_ENTER_MARGIN=" ░ "
+
+function magic_base {
+  dirs
+  git -c color.status=false status -sb 2> /dev/null
+  echo ""
+  CLICOLOR_FORCE=1 ls -C -G
+}
+
+function wrap_output {
+  local output="$1"
+  local output_len="$(echo "$output" | sed -n '$=')"
+  if [ -n "$output" ]; then
+    if [ "$output_len" -gt "$((LINES - 2))" -a -n "$PAGER" ]; then
+      printf "$output\n" | "$PAGER" -R
+    else
+      printf "$output\n" | sed "s/^/$MAGIC_ENTER_MARGIN/"
+    fi
+  fi
+}
+
+function magic_enter {
+  if [ -z $BUFFER ]; then
+    echo ""
+    wrap_output "$(magic_base)"
+    zle redisplay
+  else
+    zle accept-line
+  fi
+}
+
+zle -N magic_enter
+bindkey "^M" magic_enter
+
+
+# ========================================
+# PROMPT
+# ========================================
+
+ICO_DIRTY="*"
+ICO_AHEAD="↑"
+ICO_BEHIND="↓"
+ICO_DIVERGED="⥮"
+
+# Allow functions in the prompt
+setopt PROMPT_SUBST
+autoload -Uz colors && colors
+
+# Git prompt
+function bg_color {
+  local test=$(git rev-parse --is-inside-work-tree 2> /dev/null)
+  if [ ! "$test" ]; then
+    echo 007 # bright white
+  else
+    local dirt=$(git diff --shortstat 2> /dev/null | tail -n1)
+    if [[ "$dirt" != "" ]]; then
+      echo 009 # bright green
+    else
+      echo 010 # bright red
+    fi
+  fi
+}
+
+PROMPT='%K{$(bg_color)}%F{black} %n ≫ %m %K{black}%F{$(bg_color)}▓▒░%f%k '
+
+
 # ========================================
 # PLUGINS
 # ========================================
@@ -20,7 +87,6 @@ alias weather="curl wttr.in"
 . ~/.zplug/init.zsh
 
 zplug "zsh-users/zsh-autosuggestions"
-# zplug "subnixr/minimal"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -31,54 +97,3 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
-
-
-ICO_DIRTY="*"
-ICO_AHEAD="↑"
-ICO_BEHIND="↓"
-ICO_DIVERGED="⥮"
-COLOR_ROOT="%F{red}"
-COLOR_USER="%F{green}"
-COLOR_NORMAL="%F{white}"
-
-#█▓▒░ allow functions in the prompt
-setopt PROMPT_SUBST
-autoload -Uz colors && colors
-
-#█▓▒░ colors for permissions
-if [[ "$EUID" -ne "0" ]]
-then  # if user is not root
-	USER_LEVEL="${COLOR_USER}"
-else # root!
-	USER_LEVEL="${COLOR_ROOT}"
-fi
-
-#█▓▒░ git prompt
-GIT_PROMPT() {
-  test=$(git rev-parse --is-inside-work-tree 2> /dev/null)
-  if [ ! "$test" ]; then
-    echo "$reset_color%F{green}▒░"
-    return
-  fi
-  ref=$(git name-rev --name-only HEAD | sed 's!remotes/!!' 2> /dev/null)
-  dirty="" && [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && dirty=$ICO_DIRTY
-  stat=$(git status | sed -n 2p)
-  case "$stat" in
-    *ahead*)
-      stat=$ICO_AHEAD
-    ;;
-    *behind*)
-      stat=$ICO_BEHIND
-    ;;
-    *diverged*)
-      stat=$ICO_DIVERGED
-    ;;
-    *)
-      stat=""
-    ;;
-  esac
-
-  echo "%{$bg[magenta]%}%F{green}▓▒░ %F{black}${ref}${dirty}${stat} $reset_color%F{magenta}▒░"
-}
-
-PROMPT='%{$bg[green]%} %F{black}%~ $(GIT_PROMPT)$reset_color %f'

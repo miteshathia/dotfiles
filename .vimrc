@@ -21,6 +21,7 @@ Plug 'tpope/vim-surround'                          " surroundings
 Plug 'ludovicchabant/vim-gutentags'                " auto-gen tags
 Plug 'majutsushi/tagbar'                           " tagbar
 Plug 'itchyny/lightline.vim'                       " nicer statusline
+Plug 'christoomey/vim-tmux-navigator'              " better tmux/vim navigation
 " colorschemes
 Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
@@ -82,8 +83,8 @@ colorscheme gruvbox
 " make Y do what C and D do
 noremap  Y       y$
 " navigating more easily
-noremap  <C-k>   5k
-noremap  <C-j>   5j
+" noremap  <C-k>   5k
+" noremap  <C-j>   5j
 " switching windows/panes
 noremap  <Tab>   <c-w>w
 noremap  <BS>    <c-w>W
