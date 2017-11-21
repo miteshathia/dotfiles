@@ -18,7 +18,7 @@ MAGIC_ENTER_MARGIN=" ░ "
 
 function magic_base {
   dirs
-  git -c color.status=false status -sb 2> /dev/null
+  git -c color.status=always status -sb 2> /dev/null
   echo ""
   CLICOLOR_FORCE=1 ls -C -G
 }
@@ -64,15 +64,16 @@ autoload -Uz colors && colors
 
 # Git prompt
 function bg_color {
-  local test=$(git rev-parse --is-inside-work-tree 2> /dev/null)
-  if [ ! "$test" ]; then
+  local is_git_repo=$(git rev-parse --is-inside-work-tree 2> /dev/null)
+  if [ ! "$is_git_repo" ]; then
     echo 007 # bright white
   else
-    local dirt=$(git diff --shortstat 2> /dev/null | tail -n1)
-    if [[ "$dirt" != "" ]]; then
-      echo 009 # bright green
+    if ! git diff-files --quiet; then
+      echo 009 # bright red
+    elif ! git diff-index --quiet --cached HEAD --; then
+      echo 011 # bright yellow
     else
-      echo 010 # bright red
+      echo 010 # bright green
     fi
   fi
 }
