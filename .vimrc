@@ -107,6 +107,8 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " syntastic ==============================
 let g:ale_sign_error='●'
 let g:ale_sign_warning='●'
+let g:ale_lint_on_enter=1
+let g:ale_echo_msg_format='[%linter%] %s'
 
 " indentLine =============================
 let g:indentLine_faster=1
