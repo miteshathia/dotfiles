@@ -14,13 +14,13 @@ set -o vi
 alias weather="curl wttr.in"
 
 # Magic enter
-MAGIC_ENTER_MARGIN=" ░ "
+MAGIC_ENTER_MARGIN=" "
 
 function magic_base {
+  printf "└── "
   dirs
-  git -c color.status=always status -sb 2> /dev/null
   echo ""
-  CLICOLOR_FORCE=1 ls -C -G
+  git -c color.status=always status -sb 2> /dev/null
 }
 
 function wrap_output {

@@ -13,7 +13,6 @@ Plug 'sheerun/vim-polyglot'                        " syntax pack
 Plug 'easymotion/vim-easymotion'                   " moving around files with greater speed
 Plug 'scrooloose/nerdcommenter'                    " easier commenting
 Plug 'ap/vim-css-color'                            " color previews
-Plug 'Yggdroot/indentLine'                         " indent lines
 Plug 'dyng/ctrlsf.vim'                             " Sublime-like find in files
 Plug 'w0rp/ale'                                    " async linting
 Plug 'junegunn/vim-slash'                          " improved searching
@@ -22,9 +21,8 @@ Plug 'ludovicchabant/vim-gutentags'                " auto-gen tags
 Plug 'majutsushi/tagbar'                           " tagbar
 Plug 'itchyny/lightline.vim'                       " nicer statusline
 Plug 'christoomey/vim-tmux-navigator'              " better tmux/vim navigation
+Plug 'vimwiki/vimwiki'                             " note-taking
 " colorschemes
-Plug 'cocopon/iceberg.vim'
-Plug 'rakr/vim-one'
 Plug 'morhetz/gruvbox'
 
 call plug#end()
@@ -105,13 +103,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 " syntastic ==============================
-let g:ale_sign_error='●'
-let g:ale_sign_warning='●'
 let g:ale_lint_on_enter=1
 let g:ale_echo_msg_format='[%linter%] %s'
-
-" indentLine =============================
-let g:indentLine_faster=1
 
 " ctrlsf =================================
 nmap <Leader>ff <Plug>CtrlSFPrompt
@@ -130,7 +123,7 @@ let g:NERDDefaultAlign='left'
 " tagbar =================================
 nnoremap <Leader>tt :TagbarToggle<CR>
 
-" vim-devicons ===========================
+" vim-gutentags ==========================
 let g:gutentags_cache_dir = '~/.tags'
 
 " lightline.vim ==========================
@@ -138,3 +131,6 @@ let g:lightline = {
   \ 'colorscheme': 'gruvbox',
   \ 'separator': { 'left': '▓▒░', 'right': '░▒▓' },
   \ }
+
+" vimwiki ------==========================
+let g:vimwiki_list = [{'path': '~/Learning/wiki'}]
