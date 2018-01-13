@@ -16,7 +16,7 @@ Plug 'ap/vim-css-color'                            " color previews
 Plug 'dyng/ctrlsf.vim'                             " Sublime-like find in files
 Plug 'w0rp/ale'                                    " async linting
 Plug 'junegunn/vim-slash'                          " improved searching
-Plug 'tpope/vim-surround'                          " surroundings
+Plug 'machakann/vim-sandwich'                      " surroundings
 Plug 'ludovicchabant/vim-gutentags'                " auto-gen tags
 Plug 'majutsushi/tagbar'                           " tagbar
 Plug 'itchyny/lightline.vim'                       " nicer statusline
@@ -53,6 +53,7 @@ set termguicolors                                  " truecolor
 set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompletion
 set iskeyword+=-                                   " what should not be considered a word boundary
 set noshowmode                                     " remove mode information from last line
+set lazyredraw                                     " makes vim faster
 
 let &colorcolumn="80,".join(range(120,373),",")    " colorcolumn at line 80 and 120+
 
@@ -80,12 +81,11 @@ colorscheme gruvbox
 
 " make Y do what C and D do
 noremap  Y       y$
-" navigating more easily
-" noremap  <C-k>   5k
-" noremap  <C-j>   5j
 " switching windows/panes
 noremap  <Tab>   <c-w>w
 noremap  <BS>    <c-w>W
+" opening loclist automatically
+nnoremap :b :ls<CR>:b<Space>
 
 " command aliases for lazy shift finger
 command! -bar -nargs=* -complete=file -range=% -bang W <line1>,<line2>write<bang> <args>
