@@ -13,3 +13,6 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
+
+# PostgreSQL CLI
+PATH+=":/Applications/Postgres.app/Contents/Versions/latest/bin"

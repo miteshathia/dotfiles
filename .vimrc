@@ -7,7 +7,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'                         " file navigation
 Plug 'Xuyuanp/nerdtree-git-plugin'                 " shows git status in NERDTree
 Plug 'airblade/vim-gitgutter'                      " git diff in gutter
-Plug 'tpope/vim-fugitive'                          " git wrapper
 Plug 'wincent/command-t'                           " fuzzy file search
 Plug 'sheerun/vim-polyglot'                        " syntax pack
 Plug 'easymotion/vim-easymotion'                   " moving around files with greater speed
@@ -42,7 +41,7 @@ set shiftwidth=2                                   " number of spaces for indent
 set tabstop=2                                      " size of tab character in spaces
 set softtabstop=2                                  " number of spaces for tab in insert mode
 set expandtab                                      " tabs become spaces
-set updatetime=750                                 " 250ms update time
+set updatetime=750                                 " 750ms update time
 set fillchars+=vert:░                              " statusline and vertsplit fillchars
 set cursorline                                     " highlights active line
 set laststatus=2                                   " always show status line
@@ -54,6 +53,8 @@ set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompl
 set iskeyword+=-                                   " what should not be considered a word boundary
 set noshowmode                                     " remove mode information from last line
 set lazyredraw                                     " makes vim faster
+set guifont=Fantasque\ Sans\ Mono:h14
+set guioptions=
 
 let &colorcolumn="80,".join(range(120,373),",")    " colorcolumn at line 80 and 120+
 
@@ -97,14 +98,18 @@ command! -bar -nargs=* -complete=file          -bang E edit<bang> <args>
 " ========================================
 
 " nerdtree ===============================
+let NERDTreeShowHidden=1
 nnoremap <Leader>nf :NERDTreeFind<CR>
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-" syntastic ==============================
+" ale ====================================
 let g:ale_lint_on_enter=1
 let g:ale_echo_msg_format='[%linter%] %s'
+let g:ale_fix_on_save=1
+let g:ale_fixers={}
+let g:ale_fixers['javascript'] = ['prettier']
 
 " ctrlsf =================================
 nmap <Leader>ff <Plug>CtrlSFPrompt

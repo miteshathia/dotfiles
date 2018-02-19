@@ -12,6 +12,7 @@ set -o vi
 
 # Aliases
 alias weather="curl wttr.in"
+alias vim="mvim -v"
 
 # Magic enter
 MAGIC_ENTER_MARGIN=" "
@@ -78,7 +79,7 @@ function bg_color {
   fi
 }
 
-PROMPT='%K{$(bg_color)}%F{black} %n ≫ %m %K{black}%F{$(bg_color)}▓▒░%f%k '
+PROMPT='%K{$(bg_color)}%F{black} %n %K{black}%F{$(bg_color)}▓▒░%f%k '
 
 
 # ========================================
