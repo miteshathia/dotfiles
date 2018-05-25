@@ -71,7 +71,7 @@ function bg_color {
   else
     if ! git diff-files --quiet; then
       echo 009 # bright red
-    elif ! git diff-index --quiet --cached HEAD --; then
+    elif ! git diff-index --quiet --cached $(git write-tree) --; then
       echo 011 # bright yellow
     else
       echo 010 # bright green
