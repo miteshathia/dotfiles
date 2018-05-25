@@ -51,7 +51,7 @@ set iskeyword+=-                                   " what should not be consider
 set noshowmode                                     " remove mode information from last line
 set lazyredraw                                     " makes vim faster
 set guifont=Fantasque\ Sans\ Mono:h14
-set guioptions=
+set guioptions=                                    " remove scrollbars on macvim
 
 let &colorcolumn='80,'.join(range(120,373),',')    " colorcolumn at line 80 and 120+
 
@@ -129,13 +129,13 @@ let g:NERDDefaultAlign='left'
 nnoremap <Leader>tt :TagbarToggle<CR>
 
 " vim-gutentags ==========================
-let g:gutentags_cache_dir = '~/.tags'
+let g:gutentags_cache_dir='~/.tags'
 
 " lightline.vim ==========================
-let g:lightline = {
+let g:lightline={
   \ 'colorscheme': 'gruvbox',
   \ 'separator': {'left': '▓▒░', 'right': '░▒▓'},
   \ }
 
 " vim-polyglot ===========================
-let g:polyglot_disabled = ['graphql']
+let g:polyglot_disabled=['graphql']
