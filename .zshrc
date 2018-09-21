@@ -12,7 +12,10 @@ set -o vi
 
 # Aliases
 alias weather="curl wttr.in"
-alias vim="mvim -v"
+alias vim="nvim"
+
+# Start rbenv
+eval "$(rbenv init -)"
 
 # Magic enter
 MAGIC_ENTER_MARGIN=" "

@@ -6,11 +6,10 @@ if ! command -v brew >/dev/null 2>&1; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-# Install vim8
-vim_version=$(vim --version | head -1 | egrep -o '[0-9]+\.[0-9]+')
-if [ "${vim_version%%.*}" -lt 8 ]; then
-  echo "Installing macvim"
-  brew install macvim
+# Install neovim
+if ! command -v nvim >/dev/null 2>&1; then
+  echo "Installing neovim"
+  brew install neovim
 fi
 
 # Install vim-plug

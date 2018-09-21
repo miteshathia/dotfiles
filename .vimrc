@@ -18,6 +18,10 @@ Plug 'junegunn/vim-slash'                          " improved searching
 Plug 'machakann/vim-sandwich'                      " surroundings
 Plug 'itchyny/lightline.vim'                       " nicer statusline
 Plug 'christoomey/vim-tmux-navigator'              " better tmux/vim navigation
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim'                      " autocomplete
+  Plug 'carlitux/deoplete-ternjs'                  " js deoplete source
+end
 " colorschemes
 Plug 'morhetz/gruvbox'
 
@@ -46,12 +50,10 @@ set clipboard=unnamed                              " copy+pasta to and from syst
 set hlsearch                                       " highlight all matching search terms
 set mouse=a                                        " can use mouse to scroll and select
 set termguicolors                                  " truecolor
-set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompletion
+" set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompletion
 set iskeyword+=-                                   " what should not be considered a word boundary
 set noshowmode                                     " remove mode information from last line
 set lazyredraw                                     " makes vim faster
-set guifont=Fantasque\ Sans\ Mono:h14
-set guioptions=                                    " remove scrollbars on macvim
 
 let &colorcolumn='80,'.join(range(120,373),',')    " colorcolumn at line 80 and 120+
 
@@ -107,7 +109,11 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 let g:ale_lint_on_enter=1
 let g:ale_echo_msg_format='[%linter%] %s'
 " let g:ale_fix_on_save=1
-let g:ale_fixers={'javascript': ['prettier']}
+let g:ale_fixers={
+  \ 'scss': ['prettier'],
+  \ 'javascript': ['prettier'],
+  \ 'ruby': ['rubocop']
+  \ }
 let g:ale_javascript_prettier_options='--single-quote'
 
 " ctrlsf =================================
@@ -134,8 +140,19 @@ let g:gutentags_cache_dir='~/.tags'
 " lightline.vim ==========================
 let g:lightline={
   \ 'colorscheme': 'gruvbox',
-  \ 'separator': {'left': '▓▒░', 'right': '░▒▓'},
+  \ 'separator': {'left': '▓▒░', 'right': '░▒▓'}
   \ }
 
 " vim-polyglot ===========================
 let g:polyglot_disabled=['graphql']
+
+" deoplete.nvim ==========================
+let g:deoplete#enable_at_startup=1
+
+" deoplete-ternjs ========================
+let g:deoplete#sources#ternjs#include_keywords=1
+let g:deoplete#sources#ternjs#types=1
+let g:deoplete#sources#ternjs#filetypes=[
+  \ 'jsx',
+  \ 'javascript.jsx'
+  \ ]
