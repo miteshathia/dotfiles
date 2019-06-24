@@ -67,7 +67,7 @@ setopt PROMPT_SUBST
 autoload -Uz colors && colors
 
 # Git prompt
-function bg_color {
+function fg_color {
   local is_git_repo=$(git rev-parse --is-inside-work-tree 2> /dev/null)
   if [ ! "$is_git_repo" ]; then
     echo 007 # bright white
@@ -82,7 +82,7 @@ function bg_color {
   fi
 }
 
-PROMPT='%K{$(bg_color)}%F{black} %n %K{black}%F{$(bg_color)}▓▒░%f%k '
+PROMPT='%F{$(fg_color)} ➥  %f%k'
 
 
 # ========================================

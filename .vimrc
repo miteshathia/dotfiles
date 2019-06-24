@@ -18,10 +18,8 @@ Plug 'junegunn/vim-slash'                          " improved searching
 Plug 'machakann/vim-sandwich'                      " surroundings
 Plug 'itchyny/lightline.vim'                       " nicer statusline
 Plug 'christoomey/vim-tmux-navigator'              " better tmux/vim navigation
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim'                      " autocomplete
-  Plug 'carlitux/deoplete-ternjs'                  " js deoplete source
-end
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+
 " colorschemes
 Plug 'morhetz/gruvbox'
 
@@ -43,14 +41,13 @@ set tabstop=2                                      " size of tab character in sp
 set softtabstop=2                                  " number of spaces for tab in insert mode
 set expandtab                                      " tabs become spaces
 set updatetime=750                                 " 750ms update time
-set fillchars+=vert:░                              " statusline and vertsplit fillchars
+set fillchars+=vert:\                              " statusline and vertsplit fillchars
 set cursorline                                     " highlights active line
 set laststatus=2                                   " always show status line
 set clipboard=unnamed                              " copy+pasta to and from system clipboard
 set hlsearch                                       " highlight all matching search terms
 set mouse=a                                        " can use mouse to scroll and select
 set termguicolors                                  " truecolor
-" set omnifunc=syntaxcomplete#Complete               " IntelliSense-like autocompletion
 set iskeyword+=-                                   " what should not be considered a word boundary
 set noshowmode                                     " remove mode information from last line
 set lazyredraw                                     " makes vim faster
@@ -108,11 +105,11 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 " ale ====================================
 let g:ale_lint_on_enter=1
 let g:ale_echo_msg_format='[%linter%] %s'
-" let g:ale_fix_on_save=1
+let g:ale_fix_on_save=1
 let g:ale_fixers={
   \ 'scss': ['prettier'],
   \ 'javascript': ['prettier'],
-  \ 'ruby': ['rubocop']
+  \ 'typescript': ['prettier']
   \ }
 let g:ale_javascript_prettier_options='--single-quote'
 
@@ -139,20 +136,8 @@ let g:gutentags_cache_dir='~/.tags'
 
 " lightline.vim ==========================
 let g:lightline={
-  \ 'colorscheme': 'gruvbox',
-  \ 'separator': {'left': '▓▒░', 'right': '░▒▓'}
+  \ 'colorscheme': 'gruvbox'
   \ }
 
 " vim-polyglot ===========================
 let g:polyglot_disabled=['graphql']
-
-" deoplete.nvim ==========================
-let g:deoplete#enable_at_startup=1
-
-" deoplete-ternjs ========================
-let g:deoplete#sources#ternjs#include_keywords=1
-let g:deoplete#sources#ternjs#types=1
-let g:deoplete#sources#ternjs#filetypes=[
-  \ 'jsx',
-  \ 'javascript.jsx'
-  \ ]
