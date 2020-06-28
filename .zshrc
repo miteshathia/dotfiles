@@ -82,7 +82,7 @@ function fg_color {
   fi
 }
 
-PROMPT='%F{$(fg_color)} ➥  %f%k'
+PROMPT='%F{$(fg_color)} $ %f%k'
 
 
 # ========================================

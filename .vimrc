@@ -8,17 +8,17 @@ Plug 'scrooloose/nerdtree'                         " file navigation
 Plug 'Xuyuanp/nerdtree-git-plugin'                 " shows git status in NERDTree
 Plug 'airblade/vim-gitgutter'                      " git diff in gutter
 Plug 'ctrlpvim/ctrlp.vim'                          " fuzzy file search
-Plug 'sheerun/vim-polyglot'                        " syntax pack
 Plug 'easymotion/vim-easymotion'                   " moving around files with greater speed
 Plug 'scrooloose/nerdcommenter'                    " easier commenting
 Plug 'ap/vim-css-color'                            " color previews
 Plug 'dyng/ctrlsf.vim'                             " Sublime-like find in files
-Plug 'w0rp/ale'                                    " async linting
 Plug 'junegunn/vim-slash'                          " improved searching
 Plug 'machakann/vim-sandwich'                      " surroundings
 Plug 'itchyny/lightline.vim'                       " nicer statusline
 Plug 'christoomey/vim-tmux-navigator'              " better tmux/vim navigation
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'w0rp/ale'                                    " async linting
+Plug 'sheerun/vim-polyglot'                        " collection of language packs
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -102,23 +102,14 @@ nnoremap <Leader>nt :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-" ale ====================================
-let g:ale_lint_on_enter=1
-let g:ale_echo_msg_format='[%linter%] %s'
-let g:ale_fix_on_save=1
-let g:ale_fixers={
-  \ 'scss': ['prettier'],
-  \ 'javascript': ['prettier'],
-  \ 'typescript': ['prettier']
-  \ }
-let g:ale_javascript_prettier_options='--single-quote'
-
 " ctrlsf =================================
 nmap <Leader>ff <Plug>CtrlSFPrompt
 vmap <Leader>ff <Plug>CtrlSFVwordPath
 vmap <Leader>fF <Plug>CtrlSFVwordExec
 nmap <Leader>fn <Plug>CtrlSFCwordPath
-let g:ctrlsf_mapping={'vsplit': '<Space>'}
+let g:ctrlsf_mapping={
+  \ 'vsplit': '<Space>'
+  \ }
 
 " ctrlp.vim ==============================
 let g:ctrlp_custom_ignore='\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
@@ -128,12 +119,6 @@ let g:ctrlp_map='<leader>t'
 let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign='left'
 
-" tagbar =================================
-nnoremap <Leader>tt :TagbarToggle<CR>
-
-" vim-gutentags ==========================
-let g:gutentags_cache_dir='~/.tags'
-
 " lightline.vim ==========================
 let g:lightline={
   \ 'colorscheme': 'gruvbox'
@@ -141,3 +126,11 @@ let g:lightline={
 
 " vim-polyglot ===========================
 let g:polyglot_disabled=['graphql']
+let g:javascript_plugin_jsdoc=1
+
+" ale ====================================
+let g:ale_lint_on_enter=1
+let g:ale_echo_msg_format='[%linter%] %s'
+
+" coc.nvim ===============================
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
